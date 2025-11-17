@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    <meta charset="UTF-8">  
+  <title>HTML Presentation</title> 
+   <link rel="stylesheet" href="style.css">
+<style>
+    body { 
+   margin: 0;    font-family: Arial, sans-serif;    background: #222;    color: white;    text-align: center;
+}
+.slide-container {  
+  height: 80vh;    display: flex;    overflow: hidden;
+}
+.slide {  
+  min-width: 100%;    display: none;    justify-content: center;    align-items: center;    flex-direction: column;
+}
+.slide.active {  
+  display: flex;}
+button {    padding: 10px 20px;    margin: 20px 10px;    background: #4CAF50;    border: none;    color: white;    font-size: 18px;    cursor: pointer;
+}
+
+</style></head>
+<body>
+<div class="slide-container">  
+  <section class="slide active">   
+     <h1>Welcome</h1>     
+   <p>This is Slide 1</p> 
+   </section>    <section class="slide">   
+     <h1>About Us</h1>     
+   <p>This is Slide 2</p>   
+ </section> 
+   <section class="slide">   
+     <h1>Thank You</h1>     
+   <p>This is Slide 3</p>  
+  </section></div>
+<button id="prev">Previous</button>
+<button id="next">Next</button>
+<script>
+    let slides = document.querySelectorAll(".slide");
+let  index = 0;
+document.getElementById("next").onclick = () => {    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;    slides[index].classList.add("active");};
+document.getElementById("prev").onclick = () => {    slides[index].classList.remove("active");   
+ index = (index - 1 + slides.length) % slides.length;    slides[index].classList.add("active");
+};
+
+</script>
+</body>
+</html>
+
+
+           
