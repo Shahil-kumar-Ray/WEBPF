@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charity Donation Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .donate-options {
+      margin-top: 10px;
+    }
+    .donate-options label {
+      font-weight: normal;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 48%;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .submit {
+      background-color: #28a745;
+      color: white;
+    }
+    .reset {
+      background-color: #dc3545;
+      color: white;
+      float: right;
+    }
+    .location {
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Charity Donation Form</h2>
+    <form id="donationForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" placeholder="Your name" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" placeholder="example@email.com" required>
+
+      <label>What would you like to donate?</label>
+      <div class="donate-options">
+        <label><input type="checkbox" id="money" value="Money"> Money</label>
+        <label><input type="checkbox" id="food" value="Food"> Food</label>
+        <label><input type="checkbox" id="clothes" value="Clothes"> Clothes</label>
+      </div>
+
+      <label for="amount">If donating money, enter amount ($):</label>
+      <input type="number" id="amount" placeholder="Enter amount">
+
+      <div class="location">
+        <input type="checkbox" id="shareLocation">
+        <label for="shareLocation">Allow my location for collection</label>
+      </div>
+
+      <button type="button" class="submit" onclick="submitForm()">Submit</button>
+      <button type="reset" class="reset">Reset</button>
+    </form>
+  </div>
+
+  <script>
+    function submitForm() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const amount = document.getElementById('amount').value;
+      const donateItems = [];
+      if (document.getElementById('money').checked) donateItems.push('Money');
+      if (document.getElementById('food').checked) donateItems.push('Food');
+      if (document.getElementById('clothes').checked) donateItems.push('Clothes');
+      const shareLocation = document.getElementById('shareLocation').checked;
+
+      if (shareLocation && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          alert(
+            `Thank you ${name}! 
+Email: ${email}
+Donation: ${donateItems.join(', ')}
+Amount: ${amount}
+Location: Latitude ${position.coords.latitude}, Longitude ${position.coords.longitude}`
+          );
+        });
+      } else {
+        alert(
+          `Thank you ${name}! 
+Email: ${email}
+Donation: ${donateItems.join(', ')}
+Amount: ${amount}`
+        );
+      }
+    }
+  </script>
+
+</body>
+</html>
